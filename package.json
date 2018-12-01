@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/Authing/solid-authing/issues"
   },
-  "homepage": "https://github.com/Authing/solid-authing#readme"
+  "homepage": "https://github.com/Authing/solid-authing#readme",
+  "dependencies": {
+    "authing-js-sdk": "^1.1.7"
+  }
 }
