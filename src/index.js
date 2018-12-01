@@ -87,7 +87,9 @@ SolidAuthing.prototype = {
         const options = {
             unionid: this.compileStr(username),
         }
-        return await this.authing.login(options);
+        const userInfo = await this.authing.login(options);
+        localStorage.setItem('_authing_userId', userInfo._id);
+        return userInfo;
     },
 
     async register() {
@@ -119,9 +121,11 @@ SolidAuthing.prototype = {
         }
 
         try {
-            const solidLogoutResult = await this.logoutFromSolid();
+            await this.logoutFromSolid();
             if (localStorage.getItem('_authing_token')) {
-                return await this.authing.logout(localStorage.getItem('userId'));
+                const userInfo = await this.authing.logout(localStorage.getItem('_authing_userId'))
+                localStorage.removeItem('_authing_userId');
+                return userInfo;
             } else {
                 return null;
             }
