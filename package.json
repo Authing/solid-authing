@@ -1,6 +1,6 @@
 {
   "name": "solid-authing",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "solid and authing all in one",
   "main": "dist/solid-authing-browser.min.js",
   "browser": "dist/solid-authing-browser.min.js",
@@ -9,7 +9,6 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js"
   },
   "repository": {
