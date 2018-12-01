@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+    <h1>请打开控制台查看调试结果</h1>
     <script src="../dist/solid-authing-browser.min.js?v=6"></script>
     <script>
         const main = async () => {
@@ -19,7 +20,10 @@
 
             const loginResult = await sa.login();
 
+            console.log('登录成果，用户信息：');
             console.log(loginResult);
+
+            console.log('获取 https://leinue.solid.authing.cn/public/test.html 网页上的内容：')
 
             sa.solid.fetch('https://leinue.solid.authing.cn/public/test.html')
             .then((response) => {
