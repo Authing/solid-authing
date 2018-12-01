@@ -61,3 +61,30 @@ const main = async () => {
 }
 main();
 ```
+
+### 获取 Solid 实例
+
+调用完 `getAuthingInsatance` 后可以使用 `solid`。
+
+``` javascript
+const main = async () => {
+    const solidAuthing = new SolidAuthing({
+        clientId: 'client_id',
+        secret: 'client_secret',
+    });
+
+    const sa = await solidAuthing.getAuthingInsatance(); //必须调用
+
+    // sa.solid...
+
+    sa.solid.fetch('https://leinue.solid.authing.cn/public/test.html')
+    .then((response) => {
+        return response.text();
+    })
+    .then((data) => {
+        // 打出 test.html 的网页内容
+        console.log(data);
+    });
+}
+main();
+```

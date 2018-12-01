@@ -17,22 +17,9 @@
 
             const sa = await solidAuthing.getAuthingInsatance();
 
-            const loginResult = await sa.register();
+            const loginResult = await sa.login();
 
             console.log(loginResult);
-
-            // const solidSession = await sa.loginInSolid();
-
-            // const userInfo = login({
-            //     email: '',
-            //     password: '',
-            //     username: '',
-            // });
-
-            // await sa.logoutFromSolid();
-            // console.log(solidSession);
-            
-            // console.log(sa.loginInSolid);
         }
         main();
     </script>
