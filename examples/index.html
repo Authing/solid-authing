@@ -20,6 +20,15 @@
             const loginResult = await sa.login();
 
             console.log(loginResult);
+
+            sa.solid.fetch('https://leinue.solid.authing.cn/public/test.html')
+            .then((response) => {
+                return response.text();
+            })
+            .then((data) => {
+                // 打出 test.html 的网页内容
+                console.log(data);
+            });            
         }
         main();
     </script>
