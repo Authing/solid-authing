@@ -8,7 +8,7 @@
 </head>
 <body>
     
-    <script src="https://solid.github.io/solid-auth-client/dist/solid-auth-client.bundle.js"></script>
+    <!-- <script src="https://solid.github.io/solid-auth-client/dist/solid-auth-client.bundle.js"></script>
     <script>
         solid.auth.trackSession(session => {
           if (!session){
@@ -31,6 +31,21 @@
         }).then(data => {
             console.log(data);
         });
+    </script> -->
+    <script src="../dist/solid-authing-browser.min.js?v=3"></script>
+    <script>
+        const main = async () => {
+            const solidAuthing = new SolidAuthing({
+                clientId: '5c023e9540bf870001aad12d',
+                secret: 'f37b3e9c458a17afc3e7f08edaa8f225',
+            });
+
+            const sa = await solidAuthing.getAuthingInsatance();
+            
+            console.log(sa);
+        }
+
+        main();
     </script>
 </body>
 </html>
