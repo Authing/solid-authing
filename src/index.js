@@ -1,5 +1,6 @@
 const Authing = require('authing-js-sdk');
 const solid = require('solid-auth-client');
+const md5 = require('./md5.js');
 
 const SolidAuthing = function(opts) {
 
@@ -33,46 +34,90 @@ SolidAuthing.prototype = {
         return this.authing;
     },
 
+    compileStr(code) {
+        let c = String.fromCharCode(code.charCodeAt(0) + code.length);
+        for(let i = 1; i < code.length; i++) {
+            c += String.fromCharCode(code.charCodeAt(i) + code.charCodeAt(i - 1));
+        }
+       return md5(escape(c));
+    },
+
     async registerInSolid() {
 
     },
 
     async loginInSolid(idp) {
-        const session = await this.solid.auth.currentSession();
+        idp = idp || 'https://solid.authing.cn';
+        const session = await this.solid.currentSession();
         if (!session) {
-            await this.solid.auth.login(idp);
+            await this.solid.login(idp);
         }else {
             return session;
         }
     },
 
     async logoutFromSolid() {
-        return this.solid.auth.logout();
+        return this.solid.logout();
     },
 
     async getSolidCurrentSession() {
-        return await this.solid.auth.currentSession();
+        return await this.solid.currentSession();
     },
 
     async trackSolidSession() {
-        return await this.solid.auth.trackSession();
+        return await this.solid.trackSession();
     },
 
-    async login(options) {
-        if (this.check()) {
+    getSolidUsername(webId) {
+        let username = webId;
+        if (username.split('.').length !== 1) {
+            username = webId.split('.')[0].split('://')[1];
+        }
+        return username;
+    },
+
+    async login() {
+        if (!this.check()) {
             throw 'Please use getAuthingInsatance first';
         }
 
-        const userInfo = await this.authing.login(options);
-        const solidInfo = await this.loginInSolid('https://solid.authing.cn');
+        const solidInfo = await this.loginInSolid();
+
+        let username = this.getSolidUsername(solidInfo.webId);        
+        const options = {
+            unionid: this.compileStr(username),
+        }
+        return await this.authing.login(options);
     },
 
     async register() {
-        const userInfo = await this.authing.login(options);
+        if (!this.check()) {
+            throw 'Please use getAuthingInsatance first';
+        }
+
         const solidInfo = await this.loginInSolid();
+        const userInfo = {
+            client_id: solidInfo.authorization.client_id,
+            idp: solidInfo.idp,
+            webId: solidInfo.webId,
+        }
+        let username = this.getSolidUsername(solidInfo.webId);
+        const unionid = this.compileStr(username);
+        const registerOptions = {
+            unionid,
+            username,
+            oauth: JSON.stringify(userInfo),
+            nickname: username,
+            registerMethod: 'oauth:solid',
+        };
+        return await this.authing.register(registerOptions);
     },
 
     async logout() {
+        if (!this.check()) {
+            throw 'Please use getAuthingInsatance first';
+        }
+        
         const userInfo = await this.authing.logout('_id');
         const solidInfo = await this.logoutFromSolid();
     }

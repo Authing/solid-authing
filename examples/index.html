@@ -32,7 +32,7 @@
             console.log(data);
         });
     </script> -->
-    <script src="../dist/solid-authing-browser.min.js?v=3"></script>
+    <script src="../dist/solid-authing-browser.min.js?v=5"></script>
     <script>
         const main = async () => {
             const solidAuthing = new SolidAuthing({
@@ -41,10 +41,24 @@
             });
 
             const sa = await solidAuthing.getAuthingInsatance();
-            
-            console.log(sa);
-        }
 
+            const registerResult = await sa.login();
+
+            console.log(registerResult);
+
+            // const solidSession = await sa.loginInSolid();
+
+            // const userInfo = login({
+            //     email: '',
+            //     password: '',
+            //     username: '',
+            // });
+
+            // await sa.logoutFromSolid();
+            // console.log(solidSession);
+            
+            // console.log(sa.loginInSolid);
+        }
         main();
     </script>
 </body>
