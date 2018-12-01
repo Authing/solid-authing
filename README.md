@@ -17,47 +17,47 @@ $ npm install solid-authing --save
 ### 注册
 
 ``` javascript
-    const main = async () => {
-        const solidAuthing = new SolidAuthing({
-            clientId: 'client_id',
-            secret: 'client_secret',
-        });
+const main = async () => {
+    const solidAuthing = new SolidAuthing({
+        clientId: 'client_id',
+        secret: 'client_secret',
+    });
 
-        const sa = await solidAuthing.getAuthingInsatance(); //必须调用
+    const sa = await solidAuthing.getAuthingInsatance(); //必须调用
 
-        const userInfo = await sa.register();
-    }
-    main();
+    const userInfo = await sa.register();
+}
+main();
 ```
 
 ### 登录
 
 ``` javascript
-    const main = async () => {
-        const solidAuthing = new SolidAuthing({
-            clientId: 'client_id',
-            secret: 'client_secret',
-        });
+const main = async () => {
+    const solidAuthing = new SolidAuthing({
+        clientId: 'client_id',
+        secret: 'client_secret',
+    });
 
-        const sa = await solidAuthing.getAuthingInsatance(); //必须调用
+    const sa = await solidAuthing.getAuthingInsatance(); //必须调用
 
-        const userInfo = await sa.login();
-    }
-    main();
+    const userInfo = await sa.login();
+}
+main();
 ```
 
 ### 退出
 
 ``` javascript
-    const main = async () => {
-        const solidAuthing = new SolidAuthing({
-            clientId: 'client_id',
-            secret: 'client_secret',
-        });
+const main = async () => {
+    const solidAuthing = new SolidAuthing({
+        clientId: 'client_id',
+        secret: 'client_secret',
+    });
 
-        const sa = await solidAuthing.getAuthingInsatance(); //必须调用
+    const sa = await solidAuthing.getAuthingInsatance(); //必须调用
 
-        const userInfo = await sa.logout();
-    }
-    main();
+    const userInfo = await sa.logout();
+}
+main();
 ```
