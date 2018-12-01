@@ -117,9 +117,18 @@ SolidAuthing.prototype = {
         if (!this.check()) {
             throw 'Please use getAuthingInsatance first';
         }
-        
-        const userInfo = await this.authing.logout('_id');
-        const solidInfo = await this.logoutFromSolid();
+
+        try {
+            const solidLogoutResult = await this.logoutFromSolid();
+            if (localStorage.getItem('_authing_token')) {
+                return await this.authing.logout(localStorage.getItem('userId'));
+            } else {
+                return null;
+            }
+        }catch(error) {
+            throw error;
+            return null;
+        }
     }
 };
 
