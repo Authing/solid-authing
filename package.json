@@ -1,6 +1,6 @@
 {
   "name": "solid-authing",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "solid and authing all in one",
   "main": "dist/solid-authing-browser.min.js",
   "browser": "dist/solid-authing-browser.min.js",
