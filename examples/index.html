@@ -18,6 +18,20 @@
 
             const sa = await solidAuthing.getAuthingInsatance();
 
+            // await sa.solid.logout();
+
+            // async function popupLogin() {
+            //     let session = await sa.solid.currentSession();
+            //     let popupUri = 'https://solid.authing.cn/common/popup.html';
+            //     if (!session) {
+            //         session = await sa.solid.popupLogin({ 
+            //             popupUri,
+            //         });
+            //     }
+            //     console.log(session);
+            // }
+            // popupLogin();            
+
             const loginResult = await sa.login();
 
             console.log('登录成果，用户信息：');
@@ -32,7 +46,7 @@
             .then((data) => {
                 // 打出 test.html 的网页内容
                 console.log(data);
-            });            
+            });
         }
         main();
     </script>

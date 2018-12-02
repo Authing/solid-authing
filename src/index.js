@@ -83,13 +83,32 @@ SolidAuthing.prototype = {
 
         const solidInfo = await this.loginInSolid();
 
-        let username = this.getSolidUsername(solidInfo.webId);        
+        let username = this.getSolidUsername(solidInfo.webId);
+        const unionid = this.compileStr(username);
         const options = {
-            unionid: this.compileStr(username),
+            unionid,
         }
-        const userInfo = await this.authing.login(options);
-        localStorage.setItem('_authing_userId', userInfo._id);
-        return userInfo;
+        try {
+            const userInfo = await this.authing.login(options);
+            localStorage.setItem('_authing_userId', userInfo._id);
+            return userInfo;    
+        }catch(error) {
+            if (error.message.code === 2004) {
+                const userInfo = {
+                    client_id: solidInfo.authorization.client_id,
+                    idp: solidInfo.idp,
+                    webId: solidInfo.webId,
+                }                
+                const registerOptions = {
+                    unionid,
+                    username,
+                    oauth: JSON.stringify(userInfo),
+                    nickname: username,
+                    registerMethod: 'oauth:solid',
+                };
+                return await this.authing.register(registerOptions);                
+            }
+        }
     },
 
     async register() {
