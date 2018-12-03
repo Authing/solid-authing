@@ -14,6 +14,12 @@ $ npm install solid-authing --save
 
 只能用于浏览器端，目前还处于 beta 版，可能会有不稳定，请暂时不要将此框架用于生产环境。
 
+### 引入
+
+``` javascript
+import SolidAuthing from 'solid-authing';
+```
+
 ### 注册
 
 ``` javascript
